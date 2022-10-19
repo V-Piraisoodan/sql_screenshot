@@ -1,0 +1,23 @@
+//BATCH TABLE
+create table batch (batchId int primary key,batchName varchar(60),No_of_Students int,No_of_classes int);
+insert into batch values (1,'guvi-morning',50,38),(2,'guvi-afternoon',46,38),(3,'guvi-evening',47,38);
+
+// STUDENT TABLE 
+create table student (studentId int primary key,studentName varchar(60),email varchar(60),batchId int,phoneNumber bigint,courseName varchar(255),Duration varchar(50),foreign key (batchId) references batch(batchId));
+insert into student values (1,'anbu','anbu@gmail.com',1,9988776655,'Full stack','5 months'),(2,'arun','arun@gmail.com',2,8877665544,'python','3 months');
+
+// TASK TABLE
+create table task (studentId int primary key,batchId int,taskName varchar(50),foreign key (BatchId) references batch(batchId),foreign key (studentId) references student(studentId)); 
+
+// MENTOR TABLE
+create table mentor (Id int primary key,batchId int unique,mentorName varchar(50),Noofclassescompleted int,foreign key (batchId) references batch(batchId));
+insert into mentor values (1,1,'devi',38),(2,2,'kishore',38);
+
+// SELECT ALL VALUES FROM TABLE
+select * from student;
+select * from batch;
+select * from task;
+select * from mentor;
+
+// JOIN TABLES
+select s.studentName,b.batchName,t.taskName,m.mentorName,t.NoofTaskCompleted from student s inner join batch b on s.batchid=b.batchid inner join task t on s.studentId=t.studentId inner join mentor m on s.batchId=m.batchId;
